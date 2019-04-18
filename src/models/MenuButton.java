@@ -29,7 +29,7 @@ public class MenuButton extends Button {
 			setFont(Font.loadFont(new FileInputStream(buttonFont), 30));
 		}
 		catch(FileNotFoundException e) {
-			setFont(Font.font("Verdana", 23));
+			setFont(Font.font("Verdana", 30));
 		}
 	}
 	
