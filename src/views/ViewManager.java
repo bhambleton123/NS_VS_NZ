@@ -1,8 +1,11 @@
 package views;
 
+import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
 import javafx.stage.Stage;
 import models.MenuButton;
 
@@ -19,24 +22,45 @@ public class ViewManager {
 		mainStage = new Stage();
 		mainStage.setScene(mainScene);
 		createButtons();
+		createBackgroundImage();
 	}
 	
 	public Stage getMainStage() {
 		return mainStage;
 	}
 	
-	public void createButtons() {
-		MenuButton button = new MenuButton("Start");
-		button.setLayoutX(30);
-		button.setLayoutY(30);
-		
-		MenuButton button2 = new MenuButton("High Scores");
-		button2.setLayoutX(30);
-		button2.setLayoutY(200);
-		
-		MenuButton button3 = new MenuButton("Quit");
-		button3.setLayoutX(30);
-		button3.setLayoutY(370);
-		mainPane.getChildren().addAll(button, button2, button3);
+	private void createButtons() {
+		createStartButton();
+		createScoresButton();
+		createExitButton();
+	}
+	
+	private void createStartButton() {
+		MenuButton start = new MenuButton("Start");
+		start.setLayoutX(30);
+		start.setLayoutY(30);
+		mainPane.getChildren().add(start);
+	}
+	
+	private void createScoresButton() {
+		MenuButton scores = new MenuButton("High Scores");
+		scores.setLayoutX(30);
+		scores.setLayoutY(230);
+		mainPane.getChildren().add(scores);
+	}
+	
+	private void createExitButton() {
+		MenuButton exit = new MenuButton("Quit");
+		exit.setLayoutX(30);
+		exit.setLayoutY(430);
+		exit.setOnAction(e -> Platform.exit());
+		mainPane.getChildren().add(exit);
+	}
+	
+	private void createBackgroundImage() {
+		Image brickWall = new Image("/views/resources/brick_wall.png");
+		BackgroundImage BrickWallBackgroundImage = new BackgroundImage(brickWall, null, null, null, null);
+		Background brickWallBackground = new Background(BrickWallBackgroundImage);
+		mainPane.setBackground(brickWallBackground);
 	}
 }
