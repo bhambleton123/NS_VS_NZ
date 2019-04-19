@@ -7,6 +7,8 @@ import javafx.util.Duration;
 
 public class GameSubScene extends SubScene	{
 	
+	private boolean isHidden;
+	
 	public GameSubScene() {
 		super(new AnchorPane(), 700, 500);
 		prefWidth(700);
@@ -14,13 +16,22 @@ public class GameSubScene extends SubScene	{
 		
 		setLayoutX(300);
 		setLayoutY(1000);
+		
+		isHidden = true;
 	}
 	
 	public void gameSceneTransition() {
 		TranslateTransition gameTransition = new TranslateTransition();
-		gameTransition.setDuration(Duration.seconds(0.4));
+		gameTransition.setDuration(Duration.seconds(0.6));
 		gameTransition.setNode(this);
-		gameTransition.setToY(-950);
+		if(isHidden) {
+			gameTransition.setToY(-950);
+			isHidden = false;
+		}
+		else {
+			gameTransition.setToY(950);
+			isHidden = true;
+		}
 		gameTransition.play();
 	}
 }
