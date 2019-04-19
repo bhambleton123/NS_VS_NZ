@@ -50,6 +50,13 @@ public class ViewManager {
 		MenuButton start = new MenuButton("Start");
 		start.setLayoutX(30);
 		start.setLayoutY(30);
+		start.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				GameManager game = new GameManager();
+				mainStage.getScene().setRoot(game.getGamePane());
+			}
+		});
 		mainPane.getChildren().add(start);
 	}
 	
