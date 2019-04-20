@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -19,6 +20,7 @@ public class GameSubScene extends SubScene	{
 	private final String BACKGROUND_PATH = "/models/resources/game_sub_scene.png";
 	private final String FONT_PATH = "src/models/resources/youmurdererbb_reg.ttf";
 	private AnchorPane root2;
+	private int i = 0;
 	
 	public GameSubScene() {
 		super(new AnchorPane(), 575, 700);
@@ -30,7 +32,6 @@ public class GameSubScene extends SubScene	{
 		setLayoutY(1000);
 		
 		createBackground(); 
-		addText();
 		
 		isHidden = true;
 	}
@@ -60,15 +61,16 @@ public class GameSubScene extends SubScene	{
 		root2.setBackground(anchorPaneBackground);
 	}
 	
-	private void addText() {
-		Text text = new Text("Hello world");
+	public void addText(String text) {
+		Text score = new Text(text);
 		try {
-			text.setFont(Font.loadFont(new FileInputStream(FONT_PATH), 30));
+			score.setFont(Font.loadFont(new FileInputStream(FONT_PATH), 40));
 		} catch (FileNotFoundException e) {
-			text.setFont(Font.font("Verdana", 30));
+			score.setFont(Font.font("Verdana", 40));
 		}
-		text.setLayoutX(100);
-		text.setLayoutY(100);
-		root2.getChildren().add(text);
+		score.setLayoutX(100);
+		score.setLayoutY(115+i);
+		root2.getChildren().add(score);
+		i += 55;
 	}
 }

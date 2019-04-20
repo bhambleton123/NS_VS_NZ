@@ -1,7 +1,11 @@
 package views;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -48,6 +52,27 @@ public class ViewManager {
 	
 	private void createScoresSubScene() {
 		scoresSubScene = new GameSubScene();
+		File scoresFile = new File("./src/views/data/scores.txt");
+		Scanner sc = null;
+		try {
+			sc = new Scanner(scoresFile);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		ArrayList<Integer> scoresArray = new ArrayList<Integer>();
+		
+		while(sc.hasNextLine() && scoresArray.size() != 10) {
+			scoresArray.add(Integer.parseInt(sc.nextLine()));
+		}
+		
+		Collections.sort(scoresArray);
+		Collections.reverse(scoresArray);
+		
+		for(int i=0; i<8; i++) {
+			scoresSubScene.addText(Integer.toString(i+1) + ". " + Integer.toString(scoresArray.get(i)));
+		}
+		
 		mainPane.getChildren().add(scoresSubScene);
 	}
 
