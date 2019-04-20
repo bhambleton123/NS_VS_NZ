@@ -1,5 +1,8 @@
 package views;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -8,6 +11,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import models.GameSubScene;
 import models.MenuButton;
@@ -18,6 +23,7 @@ public class ViewManager {
 	private Scene mainScene;
 	private final int WIDTH = 1200;
 	private final int HEIGHT = 600;
+	private final String buttonFont = "src/models/resources/youmurdererbb_reg.ttf";
 	
 	private GameSubScene scoresSubScene;
 	
@@ -29,6 +35,7 @@ public class ViewManager {
 		createButtons();
 		createBackgroundImage();
 		createSubScenes();
+		createTitle();
 	}
 	
 	public Stage getMainStage() {
@@ -90,5 +97,17 @@ public class ViewManager {
 		BackgroundImage BrickWallBackgroundImage = new BackgroundImage(brickWall, null, null, null, null);
 		Background brickWallBackground = new Background(BrickWallBackgroundImage);
 		mainPane.setBackground(brickWallBackground);
+	}
+	
+	private void createTitle() {
+		Text titleText = new Text("NS VS NZ");
+		try {
+			titleText.setFont(Font.loadFont(new FileInputStream(buttonFont), 100));
+		} catch (FileNotFoundException e) {
+			titleText.setFont(Font.font("Verdana"));
+		}
+		titleText.setLayoutX(900);
+		titleText.setLayoutY(100);
+		mainPane.getChildren().add(titleText);
 	}
 }
