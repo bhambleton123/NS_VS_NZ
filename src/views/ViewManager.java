@@ -133,7 +133,7 @@ public class ViewManager {
 		try {
 			titleText.setFont(Font.loadFont(new FileInputStream(buttonFont), 100));
 		} catch (FileNotFoundException e) {
-			titleText.setFont(Font.font("Verdana"));
+			titleText.setFont(Font.font("Verdana", 100));
 		}
 		titleText.setLayoutX(900);
 		titleText.setLayoutY(100);
