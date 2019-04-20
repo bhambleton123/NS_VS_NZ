@@ -43,10 +43,14 @@ public class ViewManager {
 	}
 	
 	private void createSubScenes()	{
+		createScoresSubScene();
+	}
+	
+	private void createScoresSubScene() {
 		scoresSubScene = new GameSubScene();
 		mainPane.getChildren().add(scoresSubScene);
 	}
-	
+
 	private void createButtons() {
 		createStartButton();
 		createScoresButton();
