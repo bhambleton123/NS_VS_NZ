@@ -1,7 +1,9 @@
 package views;
 
+import javafx.animation.AnimationTimer;
 import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -15,10 +17,16 @@ public class GameManager {
 	private Scene gameScene;
 	private Stage gameStage;
 	boolean up, down, left, right, sprint;
+	private Node node;
 	
 	public GameManager(){
 		initializeScene();
+		node = new Circle(30);
+		node.setLayoutX(300);
+		node.setLayoutY(300);
+		gamePane.getChildren().add(node);
 		initializeKeyListeners();
+		createGameLoop();
 	}
 	
 	public void showGameStage(Stage stageToBeHidden) {
@@ -38,16 +46,9 @@ public class GameManager {
 		gameScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
-				if(event.getCode() == KeyCode.A) {
-					Circle circle = new Circle(30);
-					circle.setLayoutX(100);
-					circle.setLayoutY(100);
-					gamePane.getChildren().add(circle);
-					TranslateTransition move = new TranslateTransition();
-					move.setDuration(Duration.seconds(.5));
-					move.setNode(circle);
-					move.setByY(300);
-					move.play();
+				if(event.getCode() == KeyCode.A) { 
+					// Just a test to see how the listeners work
+					left = true;
 				}
 				else if(event.getCode() == KeyCode.W) {
 					up = true;
@@ -78,5 +79,31 @@ public class GameManager {
 				}
 			}
 		});
+	}
+	
+	private void createGameLoop() {
+		AnimationTimer gameTimer = new AnimationTimer() {
+			@Override
+			public void handle(long now) {
+				moveObject();
+			}
+		};
+		gameTimer.start();
+	}
+	
+	private void moveObject() {
+		int speed = 6;
+		if(up && !down) {
+			node.setLayoutY(node.getLayoutY()-speed);
+		}
+		if(down && !up) {
+			node.setLayoutY(node.getLayoutY()+speed);
+		}
+		if(right && !left) {
+			node.setLayoutX(node.getLayoutX()+speed);
+		}
+		if(left && !right) {
+			node.setLayoutX(node.getLayoutX()-speed);
+		}
 	}
 }
