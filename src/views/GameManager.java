@@ -1,7 +1,6 @@
 package views;
 
 import javafx.animation.AnimationTimer;
-import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -10,7 +9,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class GameManager {
 	private AnchorPane gamePane;
@@ -59,6 +57,9 @@ public class GameManager {
 				else if(event.getCode() == KeyCode.S) {
 					down = true;
 				}
+				else if(event.getCode() == KeyCode.SHIFT) {
+					sprint = true;
+				}
 			}
 		});
 		
@@ -77,6 +78,9 @@ public class GameManager {
 				else if(event.getCode() == KeyCode.S) {
 					down = false;
 				}
+				else if(event.getCode() == KeyCode.SHIFT) {
+					sprint = false;
+				}
 			}
 		});
 	}
@@ -92,7 +96,10 @@ public class GameManager {
 	}
 	
 	private void moveObject() {
-		int speed = 6;
+		double speed = 3.5;
+		if(sprint) {
+			speed *= 1.75;
+		}
 		if(up && !down) {
 			node.setLayoutY(node.getLayoutY()-speed);
 		}
