@@ -1,25 +1,16 @@
 package models.characters;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
-public class Ninja implements Character {
+public class Ninja extends Character {
 	
 	private double movementSpeed;
 	private double movementSpeedMultiplier;
 	
-	public Ninja(double movementSpeedInput, double movementSpeedMultiplierInput) {
-		this.movementSpeed = movementSpeedInput;
-		this.movementSpeedMultiplier = movementSpeedMultiplierInput;
-	}
-
-	@Override
-	public double getMovementSpeed() {
-		return movementSpeed;
-	}
-
-	@Override
-	public double getMovementSpeedMultiplier() {
-		return movementSpeedMultiplier;
+	public Ninja(double movementSpeed, double movementSpeedMultiplier) {
+		super(movementSpeed, movementSpeedMultiplier);
+		getCharacterImage();
 	}
 
 	@Override
@@ -41,9 +32,8 @@ public class Ninja implements Character {
 	}
 
 	@Override
-	public Image getCharacterImage() {
-		return null;
-		
+	public ImageView getCharacterImage() {
+		return new ImageView(new Image(("/models/resources/ninja_run.png")));
 	}
 
 	@Override
@@ -57,5 +47,4 @@ public class Ninja implements Character {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

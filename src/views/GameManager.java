@@ -1,14 +1,20 @@
 package views;
 
+import java.io.FileInputStream;
+
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import models.characters.Character;
+import models.characters.Ninja;
 
 public class GameManager {
 	private AnchorPane gamePane;
@@ -17,9 +23,14 @@ public class GameManager {
 	boolean up, down, left, right, sprint;
 	private Node node;
 	
+	private Image ninjaImage;
+	private ImageView ninjaImageView;
+	private Character newCharacter;
+	
 	public GameManager(){
 		initializeScene();
-		node = new Circle(30);
+		newCharacter = new Ninja(6,2);
+		node = newCharacter.getCharacterImage();
 		node.setLayoutX(300);
 		node.setLayoutY(300);
 		gamePane.getChildren().add(node);
@@ -96,9 +107,9 @@ public class GameManager {
 	}
 	
 	private void moveObject() {
-		double speed = 3.5;
+		double speed = newCharacter.getMovementSpeed();
 		if(sprint) {
-			speed *= 1.75;
+			speed *= newCharacter.getMovementSpeedMultiplier();
 		}
 		if(up && !down) {
 			node.setLayoutY(node.getLayoutY()-speed);
