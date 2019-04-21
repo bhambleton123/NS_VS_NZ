@@ -22,10 +22,10 @@ public class GameSubScene extends SubScene	{
 	private int i = 0;
 	
 	public GameSubScene() {
-		super(new AnchorPane(), 575, 700);
+		super(new AnchorPane(), 575, 650);
 		
 		prefWidth(575);
-		prefHeight(700);
+		prefHeight(650);
 		
 		setLayoutX(300);
 		setLayoutY(1000);
@@ -34,8 +34,6 @@ public class GameSubScene extends SubScene	{
 		
 		isHidden = true;
 	}
-	
-	
 
 	public void gameSceneTransition() {
 		TranslateTransition gameTransition = new TranslateTransition();

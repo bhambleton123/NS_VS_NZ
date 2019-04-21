@@ -90,7 +90,7 @@ public class ViewManager {
 			@Override
 			public void handle(ActionEvent event) {
 				GameManager game = new GameManager();
-				mainStage.getScene().setRoot(game.getGamePane());
+				game.showGameStage(mainStage);
 			}
 		});
 		mainPane.getChildren().add(start);
@@ -105,7 +105,6 @@ public class ViewManager {
 
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
 				scoresSubScene.gameSceneTransition();
 			}
 			
