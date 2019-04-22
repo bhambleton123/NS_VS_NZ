@@ -1,10 +1,8 @@
 package models.characters;
 
-import java.util.concurrent.TimeUnit;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.util.Duration;
+import models.characters.tools.AnimatedImage;
 
 public class Ninja extends Character {
 	
@@ -13,9 +11,14 @@ public class Ninja extends Character {
 	}
 
 	@Override
-	public Image getMovementAnimationLeftRight() {
-		return new Image("/models/resources/ninja.gif");
-		
+	public AnimatedImage getMovementAnimationLeftRight() {
+		Image[] images = new Image[4];
+		images[0] = new Image("/models/resources/ninja/ninja_1.png");
+		images[1] = new Image("/models/resources/ninja/ninja_2.png");
+		images[2] = new Image("/models/resources/ninja/ninja_3.png");
+		images[3] = new Image("/models/resources/ninja/ninja_2.png");
+		AnimatedImage newAnimation = new AnimatedImage(images, .1);
+		return newAnimation;
 	}
 
 	@Override
@@ -32,9 +35,14 @@ public class Ninja extends Character {
 
 	@Override
 	public ImageView getCharacterImageView() {
-			return new ImageView(new Image(("/models/resources/standing_ninja.png")));
+			return new ImageView(new Image(("/models/resources/ninja/ninja_2.png")));
 	}
-
+	
+	@Override
+	public Image getCharacterImage() {
+		return new Image("/models/resources/ninja/ninja_2.png");
+	}
+	
 	@Override
 	public void changePlayerHealth() {
 		// TODO Auto-generated method stub
@@ -46,4 +54,6 @@ public class Ninja extends Character {
 		// TODO Auto-generated method stub
 		
 	}
+
+	
 }

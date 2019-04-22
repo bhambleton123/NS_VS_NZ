@@ -1,18 +1,13 @@
 package views;
 
 import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import models.characters.Character;
 import models.characters.Ninja;
 
@@ -22,9 +17,8 @@ public class GameManager {
 	private Stage gameStage;
 	boolean up, down, left, right, sprint;
 	private ImageView node;
-	private long lastTime = 400;
-	
 	private Character newCharacter;
+	private long startNanoTime = System.nanoTime();
 	
 	public GameManager(){
 		initializeScene();
@@ -98,13 +92,15 @@ public class GameManager {
 	private void createGameLoop() {
 		AnimationTimer gameTimer = new AnimationTimer() {
 			@Override
-			public void handle(long now) {
+			public void handle(long currentNanoTime) {
+				double t = (currentNanoTime - startNanoTime) / 1000000000.0; 
 				moveObject();
-				long elapsed = -(lastTime - now);
-				if(elapsed > 4000) {
-					changeCharacterImage();
+				if(left || right) {
+				node.setImage(newCharacter.getMovementAnimationLeftRight().getFrame(t));
 				}
-				lastTime = now;
+				else {
+					node.setImage(newCharacter.getCharacterImage());
+				}
 			}
 		};
 		gameTimer.start();
@@ -131,12 +127,4 @@ public class GameManager {
 		}
 	}
 	
-	private void changeCharacterImage() {
-		if(left || right) {
-			node.setImage(newCharacter.getMovementAnimationLeftRight());
-		}
-		else {
-			node.setImage(new Image("/models/resources/standing_ninja.png"));
-		}
-	}
 }
