@@ -1,21 +1,20 @@
 package models.characters;
 
+import java.util.concurrent.TimeUnit;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
 public class Ninja extends Character {
 	
-	private double movementSpeed;
-	private double movementSpeedMultiplier;
-	
-	public Ninja(double movementSpeed, double movementSpeedMultiplier) {
-		super(movementSpeed, movementSpeedMultiplier);
-		getCharacterImage();
+	public Ninja(double movementSpeed, double movementSpeedMultiplier, double health) {
+		super(movementSpeed, movementSpeedMultiplier, health);
 	}
 
 	@Override
-	public void movementAnimation() {
-		// TODO Auto-generated method stub
+	public Image getMovementAnimationLeftRight() {
+		return new Image("/models/resources/ninja.gif");
 		
 	}
 
@@ -32,8 +31,8 @@ public class Ninja extends Character {
 	}
 
 	@Override
-	public ImageView getCharacterImage() {
-		return new ImageView(new Image(("/models/resources/ninja_run.png")));
+	public ImageView getCharacterImageView() {
+			return new ImageView(new Image(("/models/resources/standing_ninja.png")));
 	}
 
 	@Override
