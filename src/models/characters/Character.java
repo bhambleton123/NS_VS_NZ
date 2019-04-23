@@ -16,9 +16,14 @@ public abstract class Character extends ImageView {
 		this.health = health;
 	}
 	
+	public Character() {
+		
+	}
+	
 	public double getMovementSpeed() {
 		return movementSpeed;
 	}
+	
 	public double getMovementSpeedMultiplier() {
 		return movementSpeedMultiplier;
 	}

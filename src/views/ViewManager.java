@@ -30,6 +30,8 @@ public class ViewManager {
 	private final String buttonFont = "src/models/resources/youmurdererbb_reg.ttf";
 	
 	private GameSubScene scoresSubScene;
+	private GameSubScene startSubScene;
+	private GameSubScene sceneToHide;
 	
 	public ViewManager() {
 		mainPane = new AnchorPane();
@@ -48,6 +50,15 @@ public class ViewManager {
 	
 	private void createSubScenes()	{
 		createScoresSubScene();
+		createStartSubScene();
+	}
+	
+	private void showSubScene(GameSubScene subScene) {
+		if(sceneToHide != null) {
+			sceneToHide.gameSceneTransition();
+		}
+		subScene.gameSceneTransition();
+		sceneToHide = subScene;
 	}
 	
 	private void createScoresSubScene() {
@@ -70,10 +81,18 @@ public class ViewManager {
 		Collections.reverse(scoresArray);
 		
 		for(int i=0; i<8; i++) {
-			scoresSubScene.addText(Integer.toString(i+1) + ". " + Integer.toString(scoresArray.get(i)));
+			scoresSubScene.addScore(Integer.toString(i+1) + ". " + Integer.toString(scoresArray.get(i)));
 		}
 		
 		mainPane.getChildren().add(scoresSubScene);
+	}
+	
+	private void createStartSubScene() {
+		startSubScene = new GameSubScene();
+		startSubScene.addStartButton(mainStage);
+		startSubScene.addText("Choose character:", 85, 95);
+		startSubScene.createCharacterSelection();
+		mainPane.getChildren().add(startSubScene);
 	}
 
 	private void createButtons() {
@@ -89,8 +108,7 @@ public class ViewManager {
 		start.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				GameManager game = new GameManager();
-				game.showGameStage(mainStage);
+				showSubScene(startSubScene);
 			}
 		});
 		mainPane.getChildren().add(start);
@@ -105,7 +123,7 @@ public class ViewManager {
 
 			@Override
 			public void handle(ActionEvent event) {
-				scoresSubScene.gameSceneTransition();
+				showSubScene(scoresSubScene);
 			}
 			
 		});

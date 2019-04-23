@@ -20,9 +20,9 @@ public class GameManager {
 	private Character newCharacter;
 	private long startNanoTime = System.nanoTime();
 	
-	public GameManager(){
+	public GameManager(Character newCharacter){
 		initializeScene();
-		newCharacter = new Ninja(6,2, 100);
+		this.newCharacter = newCharacter;
 		node = newCharacter.getCharacterImageView();
 		node.setLayoutX(300);
 		node.setLayoutY(300);
@@ -49,7 +49,6 @@ public class GameManager {
 			@Override
 			public void handle(KeyEvent event) {
 				if(event.getCode() == KeyCode.A) { 
-					// Just a test to see how the listeners work
 					left = true;
 				}
 				else if(event.getCode() == KeyCode.W) {
@@ -95,7 +94,7 @@ public class GameManager {
 			public void handle(long currentNanoTime) {
 				double t = (currentNanoTime - startNanoTime) / 1000000000.0; 
 				moveObject();
-				if(left || right) {
+				if(left || right || up || down) {
 				node.setImage(newCharacter.getMovementAnimationLeftRight().getFrame(t));
 				}
 				else {
@@ -112,7 +111,7 @@ public class GameManager {
 			speed *= newCharacter.getMovementSpeedMultiplier();
 		}
 		if(up && !down) {
-			node.setLayoutY(node.getLayoutY()-speed);
+				node.setLayoutY(node.getLayoutY()-speed);
 		}
 		if(down && !up) {
 			node.setLayoutY(node.getLayoutY()+speed);
